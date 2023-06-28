@@ -23,6 +23,7 @@ std = []
 clock = ["std", "windows-sys", "iana-time-zone", "libc"]
 wasmbind = ["wasm-bindgen", "js-sys"]
 unstable-locales = ["pure-rust-locales", "alloc"]
+android-unsupported-internal-tzdata = ["android-tzdata"]
 __internal_bench = ["criterion"]
 __doctest = []
 
@@ -40,10 +41,11 @@ js-sys = { version = "0.3", optional = true }       # contains FFI bindings for 
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.48.0", features = ["Win32_System_Time", "Win32_System_SystemInformation", "Win32_Foundation"], optional = true }
 
-[target.'cfg(all(unix, not(target_os = "android")))'.dependencies]
+[target.'cfg(unix)'.dependencies]
 iana-time-zone = { version = "0.1.45", optional = true, features = ["fallback"] }
 
 [target.'cfg(target_os = "android")'.dependencies]
+android-tzdata = { version = "0.1.1", optional = true }
 libc = { version = "0.2.146", optional = true }
 once_cell = "1.17.2"
 
